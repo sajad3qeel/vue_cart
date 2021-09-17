@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="app" class="bg-gray-300 h-screen w-screen">
+
+
+  <div class="px-11 flex justify-center ">
+      <div class="w-4/12 flex justify-evenly">
+          <div class="flex flex-col pt-20">
+
+              <div class="flex gap-4">
+
+                  <input v-model="input" class="p-3 w-96 h-12 border border-2 focus:border-indigo-500 rounded-md placeholder-gray-500 outline-none" type="text" placeholder="Type the item name">
+
+                  <div class="flex flex-row gap-1 justify-evenly ">
+
+                      <button @click="number++" class="rounded-md h-12 w-10 bg-indigo-500 text-center text-white text-2xl border border-2 focus:border-indigo-700">+</button>
+                      <input min="0" v-model="number"  class="rounded-md h-12 w-28 text-center border border-2 focus:border-indigo-500 rounded-md placeholder-gray-500 outline-none" type="number">
+                      <button @click="number0" class="rounded-md h-12 w-10 bg-indigo-500 text-center text-white text-2xl  border border-2 focus:border-indigo-700">-</button>
+
+                  </div>
+
+              </div >
+
+                  <button @click="ItemToArray" class="ml-auto mt-6 bg-yellow-500 h-10 w-14 rounded-md border border-2 focus:border-black text-lg">add</button>
+
+          </div>
+      </div>
+  </div>
+
+<div v-if="items.length != 0" class="px-11 mt-20">
+    <div class="flex justify-center ">
+        <div class="flex w-4/12 justify-between text-indigo-500 font-bold ">
+            <h1>Item name</h1>
+            <h1>Item qty</h1>
+        </div>
+    </div>
+</div>
+
+
+<div class="px-11 flex justify-center">
+    <div class="flex-col w-4/12 ">
+        <div v-for="item in items" class="flex justify-center mt-3  ">
+            <div class="flex w-full justify-between border-b border-indigo-500 py-2">
+                <h1>{{item.name}}</h1>
+                <h1>{{item.qty}}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+
+    let app = new Vue({
+        el:'#app',
+        data: {
+
+            input:null,
+            number:0,
+            items:[]
+
+        },methods: {
+
+            ItemToArray(){
+                const item = {
+                    "name": this.input,
+                    "qty": this.number,
+                }
+                if(this.input !== null && this.number !== 0 ){
+                    this.items.push(item)
+                    this.input = ""
+                    this.number = 0
+                }
+            },
+            number0(){
+
+                if (this.number !==0){
+                    this.number--
+                }
+            },
+        },
+
+    })
+
+</script>
+</body>
+</html>
